@@ -5,6 +5,7 @@ import Potreros from "./pages/Potreros";
 import Ganado from "./pages/Ganado";   
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { useIdleLogout } from "./hooks/useIdleLogout";
+import Inicio from "./pages/Inicio";
 
 function App() {
 
@@ -23,10 +24,11 @@ function App() {
         {/* DASHBOARD PROTEGIDO */}
         <Route element={<ProtectedRoute />}>
 
-          <Route path="/dashboard" element={<Dashboard />}>
-            <Route path="potreros" element={<Potreros />} />
-            <Route path="ganado" element={<Ganado />} />
-          </Route>
+        <Route path="/dashboard" element={<Dashboard />}>
+          <Route index element={<Inicio />} />
+          <Route path="potreros" element={<Potreros />} />
+          <Route path="ganado" element={<Ganado />} />
+        </Route>
 
         </Route>
 

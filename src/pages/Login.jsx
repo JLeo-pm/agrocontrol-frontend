@@ -12,7 +12,7 @@ export default function Login() {
 
     try {
       await login(email, password);
-      navigate("/dashboard/potreros");
+      navigate("/dashboard");
     } catch (error) {
       alert(error.message);
     }

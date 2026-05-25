@@ -7,6 +7,7 @@ import {
   getPotreros
 } from "../services/api";
 import { usePagination } from "../hooks/usePagination";
+import { Pencil, Activity } from "lucide-react";
 
 
 function Ganado() {
@@ -191,12 +192,6 @@ const {
   prev
 } = usePagination(filtrados, 6);
 
-console.log({
-  header,
-  page,
-  tableContainer,
-  searchInput
-});
   return (
   <div style={page}>
 
@@ -212,56 +207,6 @@ console.log({
       <button onClick={openCreate} style={btnPrimary}>
         + Nuevo animal
       </button>
-    </div>
-
-    {/* STATS */}
-    <div style={statsGrid}>
-      <div style={statCard}>
-        <span style={statLabel}>Total animales</span>
-        <h2 style={statNumber}>{animales.length}</h2>
-      </div>
-
-      <div style={statCard}>
-    <span style={statLabel}>Activos</span>
-    <h2 style={{ ...statNumber, color: "#16a34a" }}>
-    {countEstado(0)}
-    </h2>
-    </div>
-
-    <div style={statCard}>
-      <span style={statLabel}>Enfermos</span>
-      <h2 style={{ ...statNumber, color: "#f59e0b" }}>
-        {countEstado(1)}
-      </h2>
-    </div>
-
-    <div style={statCard}>
-      <span style={statLabel}>Vendidos</span>
-      <h2 style={{ ...statNumber, color: "#6366f1" }}>
-        {countEstado(2)}
-      </h2>
-    </div>
-
-    <div style={statCard}>
-      <span style={statLabel}>Muertos</span>
-      <h2 style={{ ...statNumber, color: "#ef4444" }}>
-        {countEstado(3)}
-      </h2>
-    </div>
-{/* HEADER 
-    <div style={statCard}>
-      <span style={statLabel}>Inactivos</span>
-      <h2 style={{ ...statNumber, color: "#64748b" }}>
-        {countEstado(4)}
-      </h2>
-    </div>*/}
-
-    <div style={statCard}>
-      <span style={statLabel}>Perdidos</span>
-      <h2 style={{ ...statNumber, color: "#0ea5e9" }}>
-        {countEstado(5)}
-      </h2>
-    </div>
     </div>
 
     {/* TABLE CARD */}
@@ -352,17 +297,13 @@ console.log({
 
                 <td style={td}>
                   <div style={{ display: "flex", gap: 8 }}>
-                    <button
-                      onClick={() => openEdit(a)}
-                      style={btnEdit}
-                    >
+                    <button onClick={() => openEdit(a)} style={btnEdit}>
+                      <Pencil size={16} />
                       Editar
                     </button>
 
-                    <button
-                      onClick={() => openEstadoModal(a)}
-                      style={btnDelete}
-                    >
+                    <button onClick={() => openEstadoModal(a)} style={btnDelete}>
+                      <Activity size={16} />
                       Estado
                     </button>
                   </div>
@@ -421,13 +362,16 @@ console.log({
             style={formGrid}
           >
 
-            <input
-              name="numeroArete"
-              placeholder="Número arete"
-              value={form.numeroArete}
-              onChange={handleChange}
-              style={input}
-            />
+            <div style={inputWrap}>
+              <Tag size={16} />
+              <input
+                name="numeroArete"
+                placeholder="Número arete"
+                value={form.numeroArete}
+                onChange={handleChange}
+                style={input}
+              />
+            </div>
 
             <input
               name="nombre"
@@ -463,13 +407,17 @@ console.log({
               <option value={1}>Hembra</option>
             </select>
 
-            <input
-              type="date"
-              name="fechaNacimiento"
-              value={form.fechaNacimiento}
-              onChange={handleChange}
-              style={input}
-            />
+            <div>
+              <label style={labelStyle}>Fecha de nacimiento</label>
+
+              <input
+                type="date"
+                name="fechaNacimiento"
+                value={form.fechaNacimiento}
+                onChange={handleChange}
+                style={input}
+              />
+            </div>
 
             <select
               name="potreroId"
@@ -570,7 +518,7 @@ console.log({
 ========================= */
 
 const page = {
-  padding: 25,
+  padding: "clamp(12px, 3vw, 25px)",
   background: "#f4f7fb",
   minHeight: "100vh",
 };
@@ -580,6 +528,8 @@ const header = {
   justifyContent: "space-between",
   alignItems: "center",
   marginBottom: 25,
+  flexWrap: "wrap",
+  gap: 10,
 };
 
 const title = {
@@ -592,39 +542,17 @@ const subtitle = {
   color: "#64748b",
 };
 
-const statsGrid = {
-  display: "grid",
-  gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))",
-  gap: 20,
-  marginBottom: 25,
-};
-
-const statCard = {
-  background: "white",
-  padding: 20,
-  borderRadius: 16,
-  boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
-};
-
-const statLabel = {
-  color: "#64748b",
-  fontSize: 14,
-};
-
-const statNumber = {
-  margin: "10px 0 0",
-  fontSize: 30,
-};
-
 const tableContainer = {
   background: "white",
   borderRadius: 16,
-  padding: 20,
+  padding: "clamp(10px, 2vw, 20px)",
   boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
+  overflowX: "auto",   
 };
 
 const table = {
   width: "100%",
+  minWidth: 700, 
   borderCollapse: "collapse",
 };
 
@@ -638,7 +566,8 @@ const searchInput = {
   padding: 10,
   borderRadius: 10,
   border: "1px solid #dbe2ea",
-  width: 250,
+  width: "100%",
+  maxWidth: 250,
 };
 
 const th = {
@@ -681,11 +610,21 @@ const modalActions = {
   marginTop: 10,
 };
 
-const input = {
-  padding: 12,
-  borderRadius: 10,
+const inputWrap = {
+  display: "flex",
+  alignItems: "center",
+  gap: 8,
   border: "1px solid #dbe2ea",
+  borderRadius: 10,
+  padding: "0 10px",
+  background: "white",
+};
+
+const input = {
+  border: "none",
   outline: "none",
+  padding: 12,
+  width: "100%",
 };
 
 const textarea = {
@@ -698,9 +637,10 @@ const textarea = {
 
 const box = {
   background: "white",
-  padding: 25,
+  padding: "clamp(15px, 3vw, 25px)",
   borderRadius: 20,
-  width: 500,
+  width: "95%",
+  maxWidth: 500,
 };
 
 const btnPrimary = {
@@ -722,6 +662,9 @@ const btnSecondary = {
 };
 
 const btnEdit = {
+  display: "flex",
+  alignItems: "center",
+  gap: 6,
   background: "#2563eb",
   color: "white",
   border: "none",
@@ -731,6 +674,9 @@ const btnEdit = {
 };
 
 const btnDelete = {
+  display: "flex",
+  alignItems: "center",
+  gap: 6,
   background: "#ef4444",
   color: "white",
   border: "none",
@@ -753,11 +699,12 @@ const estadoBox = {
   background: "white",
   padding: 25,
   borderRadius: 20,
-  width: 350,
+  width: "95%",
+  maxWidth: 350,
 };
 
 const btnPage = {
-  padding: "8px 12px",
+  padding: "10px 14px",
   borderRadius: 8,
   border: "1px solid #dbe2ea",
   background: "white",
@@ -769,6 +716,13 @@ const pageText = {
   fontSize: 14,
   color: "#64748b",
   fontWeight: 500,
+};
+
+const labelStyle = {
+  fontSize: 13,
+  color: "#64748b",
+  marginBottom: 5,
+  display: "block",
 };
 
 export default Ganado;
