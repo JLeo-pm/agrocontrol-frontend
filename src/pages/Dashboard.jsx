@@ -1,6 +1,6 @@
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Home, MapPin, Beef, User, LogOut, ChevronDown  } from "lucide-react";
+import { Home, MapPin, Beef, User, LogOut, ChevronDown} from "lucide-react";
 
 function Dashboard() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -14,7 +14,6 @@ function Dashboard() {
     localStorage.removeItem("token");
     navigate("/");
   };
-
   // Detectar móvil
   useEffect(() => {
     const handleResize = () => {
@@ -26,8 +25,14 @@ function Dashboard() {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+  
+  const location = useLocation();
 
-  return (
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
+  
+return (
     <div
       style={{
         display: "flex",
@@ -67,18 +72,30 @@ function Dashboard() {
           />
 
           <nav style={{ marginTop: "30px" }}>
-          <Link style={linkStyle} to="">
-            <Home size={18} style={{ marginRight: 8 }} />
+          <Link
+            style={linkStyle}
+            to=""
+            onClick={() => setMenuOpen(false)}
+          >
+            <Beef size={18} style={{ marginRight: 8, pointerEvents: "none" }} />
             Inicio
           </Link>
 
-          <Link style={linkStyle} to="potreros">
-            <MapPin size={18} style={{ marginRight: 8 }} />
+          <Link
+            style={linkStyle}
+            to="potreros"
+            onClick={() => setMenuOpen(false)}
+          >
+            <Beef size={18} style={{ marginRight: 8, pointerEvents: "none" }} />
             Potreros
           </Link>
 
-          <Link style={linkStyle} to="ganado">
-            <Beef size={18} style={{ marginRight: 8 }} />
+          <Link
+            style={linkStyle}
+            to="ganado"
+            onClick={() => setMenuOpen(false)}
+          >
+            <Beef size={18} style={{ marginRight: 8, pointerEvents: "none" }} />
             Ganado
           </Link>
           </nav>
