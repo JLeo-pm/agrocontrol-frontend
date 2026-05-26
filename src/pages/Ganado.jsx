@@ -1,13 +1,8 @@
 import { useEffect, useState } from "react";
-import {
-  getAnimales,
-  crearAnimal,
-  editarAnimal,
-  cambiarEstadoAnimal,
-  getPotreros
-} from "../services/api";
+import { Pencil, Activity,Tag } from "lucide-react";
+import {getAnimales,crearAnimal,editarAnimal,cambiarEstadoAnimal,getPotreros} from "../services/api";
 import { usePagination } from "../hooks/usePagination";
-import { Pencil, Activity } from "lucide-react";
+import {page,header,title,subtitle,tableContainer,table,tableHeader,searchInput,th,td,tr,badge,formGrid,modalHeader,modalActions,inputWrap,input,textarea,box,btnPrimary,btnSecondary,btnEdit,btnDelete,modal,estadoBox,btnPage,pageText,labelStyle} from "../styles/ganadoStyles";
 
 
 function Ganado() {
@@ -15,7 +10,6 @@ function Ganado() {
   const [modalOpen, setModalOpen] = useState(false);
   const [estadoModal, setEstadoModal] = useState(false);
   const [animalEstado, setAnimalEstado] = useState(null);
-  const countEstado = (estado) => animales.filter(a => a.estado === estado).length;
   const [nuevoEstado, setNuevoEstado] = useState(0);
   const [editMode, setEditMode] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -373,31 +367,35 @@ const {
               />
             </div>
 
-            <input
-              name="nombre"
-              placeholder="Nombre"
-              value={form.nombre}
-              onChange={handleChange}
-              style={input}
-            />
-
-            <input
+            <div style={inputWrap}>
+              <input
+                name="nombre"
+                placeholder="Nombre"
+                value={form.nombre}
+                onChange={handleChange}
+                style={input}
+              />
+            </div>
+            <div style={inputWrap}>
+              <input
               name="raza"
               placeholder="Raza"
               value={form.raza}
               onChange={handleChange}
               style={input}
             />
-
-            <input
+            </div>
+            <div style={inputWrap}>
+              <input
               name="color"
               placeholder="Color"
               value={form.color}
               onChange={handleChange}
               style={input}
             />
-
-            <select
+            </div>
+            <div style={inputWrap}>
+              <select
               name="sexo"
               value={form.sexo}
               onChange={handleChange}
@@ -406,20 +404,23 @@ const {
               <option value={0}>Macho</option>
               <option value={1}>Hembra</option>
             </select>
-
-            <div>
-              <label style={labelStyle}>Fecha de nacimiento</label>
-
-              <input
-                type="date"
-                name="fechaNacimiento"
-                value={form.fechaNacimiento}
-                onChange={handleChange}
-                style={input}
-              />
             </div>
 
-            <select
+            <div>
+                <label style={labelStyle}>Fecha de nacimiento</label>
+              <div style={inputWrap}>
+                <input
+                  type="date"
+                  name="fechaNacimiento"
+                  value={form.fechaNacimiento}
+                  onChange={handleChange}
+                  style={input}
+                />
+              </div>
+            </div>
+            
+            <div style={inputWrap}>
+              <select
               name="potreroId"
               value={form.potreroId}
               onChange={handleChange}
@@ -436,6 +437,8 @@ const {
                 </option>
               ))}
             </select>
+            </div>
+
 
             <textarea
               name="observaciones"
@@ -512,217 +515,5 @@ const {
     </div>
   );
 }
-
-/* =========================
-   PRO UI STYLES
-========================= */
-
-const page = {
-  padding: "clamp(12px, 3vw, 25px)",
-  background: "#f4f7fb",
-  minHeight: "100vh",
-};
-
-const header = {
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  marginBottom: 25,
-  flexWrap: "wrap",
-  gap: 10,
-};
-
-const title = {
-  margin: 0,
-  fontSize: 28,
-};
-
-const subtitle = {
-  marginTop: 5,
-  color: "#64748b",
-};
-
-const tableContainer = {
-  background: "white",
-  borderRadius: 16,
-  padding: "clamp(10px, 2vw, 20px)",
-  boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
-  overflowX: "auto",   
-};
-
-const table = {
-  width: "100%",
-  minWidth: 700, 
-  borderCollapse: "collapse",
-};
-
-const tableHeader = {
-  display: "flex",
-  justifyContent: "space-between",
-  marginBottom: 20,
-};
-
-const searchInput = {
-  padding: 10,
-  borderRadius: 10,
-  border: "1px solid #dbe2ea",
-  width: "100%",
-  maxWidth: 250,
-};
-
-const th = {
-  textAlign: "left",
-  padding: 14,
-  color: "#64748b",
-  fontSize: 14,
-  borderBottom: "1px solid #eef2f7",
-};
-
-const td = {
-  padding: 14,
-  borderBottom: "1px solid #eef2f7",
-};
-
-const tr = {
-  transition: "0.2s",
-};
-
-const badge = {
-  padding: "6px 12px",
-  borderRadius: 20,
-  fontSize: 12,
-  fontWeight: 600,
-};
-
-const formGrid = {
-  display: "flex",
-  flexDirection: "column",
-  gap: 12,
-};
-
-const modalHeader = {
-  marginBottom: 20,
-};
-
-const modalActions = {
-  display: "flex",
-  gap: 10,
-  marginTop: 10,
-};
-
-const inputWrap = {
-  display: "flex",
-  alignItems: "center",
-  gap: 8,
-  border: "1px solid #dbe2ea",
-  borderRadius: 10,
-  padding: "0 10px",
-  background: "white",
-};
-
-const input = {
-  border: "none",
-  outline: "none",
-  padding: 12,
-  width: "100%",
-};
-
-const textarea = {
-  padding: 12,
-  borderRadius: 10,
-  border: "1px solid #dbe2ea",
-  minHeight: 100,
-  resize: "none",
-};
-
-const box = {
-  background: "white",
-  padding: "clamp(15px, 3vw, 25px)",
-  borderRadius: 20,
-  width: "95%",
-  maxWidth: 500,
-};
-
-const btnPrimary = {
-  background: "#16a34a",
-  color: "white",
-  border: "none",
-  padding: "12px 16px",
-  borderRadius: 10,
-  cursor: "pointer",
-  fontWeight: 600,
-};
-
-const btnSecondary = {
-  background: "#e2e8f0",
-  border: "none",
-  padding: "12px 16px",
-  borderRadius: 10,
-  cursor: "pointer",
-};
-
-const btnEdit = {
-  display: "flex",
-  alignItems: "center",
-  gap: 6,
-  background: "#2563eb",
-  color: "white",
-  border: "none",
-  padding: "8px 12px",
-  borderRadius: 8,
-  cursor: "pointer",
-};
-
-const btnDelete = {
-  display: "flex",
-  alignItems: "center",
-  gap: 6,
-  background: "#ef4444",
-  color: "white",
-  border: "none",
-  padding: "8px 12px",
-  borderRadius: 8,
-  cursor: "pointer",
-};
-
-const modal = {
-  position: "fixed",
-  inset: 0,
-  background: "rgba(0,0,0,0.45)",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  backdropFilter: "blur(3px)",
-};
-
-const estadoBox = {
-  background: "white",
-  padding: 25,
-  borderRadius: 20,
-  width: "95%",
-  maxWidth: 350,
-};
-
-const btnPage = {
-  padding: "10px 14px",
-  borderRadius: 8,
-  border: "1px solid #dbe2ea",
-  background: "white",
-  cursor: "pointer",
-  fontSize: 16,
-};
-
-const pageText = {
-  fontSize: 14,
-  color: "#64748b",
-  fontWeight: 500,
-};
-
-const labelStyle = {
-  fontSize: 13,
-  color: "#64748b",
-  marginBottom: 5,
-  display: "block",
-};
 
 export default Ganado;

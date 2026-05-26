@@ -98,14 +98,18 @@ function Inicio() {
           {/* QUICK INSIGHTS */}
           <div style={grid2}>
 
-            <div style={cardBig}>
-              <h3>⚠️ Alertas</h3>
-              <p>
-                {enfermos > 0
-                  ? `${enfermos} animales requieren atención`
-                  : "Sin alertas activas"}
-              </p>
-            </div>
+          <div style={cardBig}>
+            <h3>
+              <AlertTriangle size={18} style={{ marginRight: 6 }} />
+              Alertas
+            </h3>
+                        
+            <p>
+              {enfermos > 0
+                ? `${enfermos} animales requieren atención`
+                : "Sin alertas activas"}
+            </p>
+          </div>
 
           </div>
         </>

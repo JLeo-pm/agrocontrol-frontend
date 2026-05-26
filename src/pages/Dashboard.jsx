@@ -1,12 +1,19 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Home, MapPin, Beef  } from "lucide-react";
+import { Home, MapPin, Beef, User, LogOut, ChevronDown  } from "lucide-react";
 
 function Dashboard() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [userMenu, setUserMenu] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   const year = new Date().getFullYear();
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
 
   // Detectar móvil
   useEffect(() => {
@@ -102,16 +109,48 @@ function Dashboard() {
       >
 
         {/* TOPBAR */}
-        <div style={topbar}>
+          <div style={topbar}>
+
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            style={{
-              ...hamburger,
-              display: isMobile ? "block" : "none",
-            }}
+            style={hamburger}
           >
             ☰
           </button>
+
+          {/* USER MENU */}
+          <div style={{ position: "relative" }}>
+
+            <button
+              onClick={() => setUserMenu(!userMenu)}
+              style={userButton}
+            >
+              <div style={avatar}>
+                <User size={18} />
+              </div>
+
+              <span style={{ fontWeight: 600 }}>
+                Administrador
+              </span>
+
+              <ChevronDown size={16} />
+            </button>
+
+            {userMenu && (
+              <div style={dropdown}>
+              
+                <button
+                  onClick={logout}
+                  style={dropdownItem}
+                >
+                  <LogOut size={16} />
+                  Cerrar sesión
+                </button>
+            
+              </div>
+            )}
+
+          </div>
         </div>
 
         {/* CONTENIDO */}
@@ -181,6 +220,51 @@ const topbar = {
   paddingLeft: "20px",
   fontWeight: "bold",
   justifyContent: "space-between",
+};
+
+const userButton = {
+  display: "flex",
+  alignItems: "center",
+  gap: 10,
+  border: "none",
+  background: "white",
+  cursor: "pointer",
+  padding: "8px 12px",
+  borderRadius: 12,
+};
+
+const avatar = {
+  width: 36,
+  height: 36,
+  borderRadius: "50%",
+  background: "#e2e8f0",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+};
+
+const dropdown = {
+  position: "absolute",
+  right: 0,
+  top: 50,
+  background: "white",
+  borderRadius: 12,
+  boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
+  overflow: "hidden",
+  minWidth: 180,
+  zIndex: 2000,
+};
+
+const dropdownItem = {
+  width: "100%",
+  border: "none",
+  background: "white",
+  padding: "12px 14px",
+  display: "flex",
+  alignItems: "center",
+  gap: 10,
+  cursor: "pointer",
+  fontSize: 14,
 };
 
 export default Dashboard;

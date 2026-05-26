@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getPotreros, crearPotrero, eliminarPotrero } from "../services/api";
-
+import { Pencil, Activity,Tag } from "lucide-react";
+import {container, header, tableCard, btnPrimary, btnSecondary, btnEdit, btnDelete, modal, box, input, table, th, td, inputWrap} from "../styles/potrerosStyles";
 function Potreros() {
   const [potreros, setPotreros] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
@@ -156,9 +157,12 @@ function Potreros() {
                   <td style={td}>
                     <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                       <button onClick={() => openEdit(p)} style={btnEdit}>
-                        Editar
+                      <Pencil size={16} />
+                      Editar
                       </button>
+
                       <button onClick={() => remove(p.potreroId)} style={btnDelete}>
+                        <Activity size={16} />
                         Eliminar
                       </button>
                     </div>
@@ -184,14 +188,14 @@ function Potreros() {
                 gap: 10,
               }}
             >
-              <input
+                <input
                 name="nombre"
                 placeholder="Nombre"
                 value={form.nombre}
                 onChange={handleChange}
                 style={input}
               />
-
+              
               <input
                 name="tamanoHectareas"
                 placeholder="Hectáreas"
@@ -220,114 +224,5 @@ function Potreros() {
     </div>
   );
 }
-
-/* =========================
-   RESPONSIVE PRO + UI BASE
-========================= */
-
-const container = {
-  padding: 30,
-};
-
-const header = {
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  marginBottom: 20,
-  gap: 15,
-  flexWrap: "wrap",
-};
-
-const tableCard = {
-  background: "white",
-  padding: 10,
-  borderRadius: 10,
-  boxShadow: "0 2px 10px rgba(0,0,0,0.08)",
-  overflowX: "auto",
-};
-
-const btnPrimary = {
-  background: "#16a34a",
-  color: "white",
-  padding: "8px 12px",
-  border: "none",
-  borderRadius: 8,
-  cursor: "pointer",
-  whiteSpace: "nowrap",
-};
-
-const btnSecondary = {
-  background: "#e2e8f0",
-  color: "#1e293b",
-  padding: "8px 12px",
-  border: "none",
-  borderRadius: 8,
-  cursor: "pointer",
-  whiteSpace: "nowrap",
-};
-
-const btnEdit = {
-  background: "#3b82f6",
-  color: "white",
-  border: "none",
-  padding: "5px 10px",
-  borderRadius: 6,
-  cursor: "pointer",
-};
-
-const btnDelete = {
-  background: "#ef4444",
-  color: "white",
-  border: "none",
-  padding: "5px 10px",
-  borderRadius: 6,
-  cursor: "pointer",
-};
-
-const modal = {
-  position: "fixed",
-  inset: 0,
-  background: "rgba(0,0,0,0.5)",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  padding: 15,
-};
-
-const box = {
-  background: "white",
-  padding: 20,
-  borderRadius: 10,
-  width: "100%",
-  maxWidth: 420,
-};
-
-const input = {
-  padding: 8,
-  border: "1px solid #ddd",
-  borderRadius: 6,
-  width: "100%",
-};
-
-const table = {
-  width: "100%",
-  borderCollapse: "collapse",
-  fontSize: 14,
-  minWidth: 600,
-};
-
-const th = {
-  textAlign: "left",
-  padding: "12px 10px",
-  borderBottom: "2px solid #e2e8f0",
-  color: "#334155",
-  fontWeight: "600",
-};
-
-const td = {
-  padding: "12px 10px",
-  borderBottom: "1px solid #e2e8f0",
-  verticalAlign: "middle",
-};
 
 export default Potreros;
