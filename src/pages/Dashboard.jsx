@@ -1,6 +1,6 @@
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Home, MapPin, Beef, User, LogOut, ChevronDown} from "lucide-react";
+import { Home, MapPin, Beef, User, LogOut, ChevronDown, MapPinned, ArrowRightLeft } from "lucide-react";
 
 function Dashboard() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -77,7 +77,10 @@ return (
             to=""
             onClick={() => setMenuOpen(false)}
           >
-            <Beef size={18} style={{ marginRight: 8, pointerEvents: "none" }} />
+            <Home
+              size={18}
+              style={{ marginRight: 8, pointerEvents: "none" }}
+            />
             Inicio
           </Link>
 
@@ -86,7 +89,10 @@ return (
             to="potreros"
             onClick={() => setMenuOpen(false)}
           >
-            <Beef size={18} style={{ marginRight: 8, pointerEvents: "none" }} />
+            <MapPinned
+              size={18}
+              style={{ marginRight: 8, pointerEvents: "none" }}
+            />
             Potreros
           </Link>
 
@@ -95,8 +101,23 @@ return (
             to="ganado"
             onClick={() => setMenuOpen(false)}
           >
-            <Beef size={18} style={{ marginRight: 8, pointerEvents: "none" }} />
+            <Beef
+              size={18}
+              style={{ marginRight: 8, pointerEvents: "none" }}
+            />
             Ganado
+          </Link>
+
+          <Link
+            style={linkStyle}
+            to="movimientos"
+            onClick={() => setMenuOpen(false)}
+          >
+            <ArrowRightLeft
+              size={18}
+              style={{ marginRight: 8, pointerEvents: "none" }}
+            />
+            Registro de Movimientos
           </Link>
           </nav>
         </div>

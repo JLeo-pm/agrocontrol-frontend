@@ -6,6 +6,8 @@ import Ganado from "./pages/Ganado";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { useIdleLogout } from "./hooks/useIdleLogout";
 import Inicio from "./pages/Inicio";
+import AnimalDetalle from "./pages/AnimalDetalle";
+import Movimientos from "./pages/movimientos/Movimientos";
 
 function App() {
 
@@ -28,6 +30,8 @@ function App() {
           <Route index element={<Inicio />} />
           <Route path="potreros" element={<Potreros />} />
           <Route path="ganado" element={<Ganado />} />
+          <Route path="ganado/:id" element={<AnimalDetalle />} />
+          <Route path="movimientos" element={<Movimientos />} />
         </Route>
 
         </Route>

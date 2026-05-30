@@ -1,6 +1,6 @@
 //URL de tu backend .NET
-//export const API_URL = "https://localhost:7088/api";
-export const API_URL = "https://agrocontrol-api-1.onrender.com/api";
+export const API_URL = "https://localhost:7088/api";
+//export const API_URL = "https://agrocontrol-api-1.onrender.com/api";
 
 // Helper para requests con token
 export function getAuthHeaders() {
@@ -94,5 +94,52 @@ export async function getPotreros() {
   });
 
   if (!res.ok) throw new Error("Error potreros");
+  return res.json();
+}
+
+
+export async function getAnimalById(id) {
+  const res = await fetch(`${API_URL}/animales/${id}`, {
+    headers: getAuthHeaders(),
+  });
+
+  if (!res.ok) throw new Error("Error animal");
+  return res.json();
+}
+
+export async function getHistorialEstados(id) {
+  const res = await fetch(`${API_URL}/animales/${id}/estados`, {
+    headers: getAuthHeaders(),
+  });
+
+  if (!res.ok) throw new Error("Error historial estados");
+  return res.json();
+}
+
+export async function getMovimientosAnimal(id) {
+  const res = await fetch(`${API_URL}/animales/${id}/movimientos`, {
+    headers: getAuthHeaders(),
+  });
+
+  if (!res.ok) throw new Error("Error movimientos animal");
+  return res.json();
+}
+
+export async function moverAnimal(id, data) {
+  const res = await fetch(
+    `${API_URL}/animales/${id}/mover-potrero`,
+    {
+      method: "PATCH",
+      headers: {
+        ...getAuthHeaders(),
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }
+  );
+
+  if (!res.ok)
+    throw new Error("Error moviendo animal");
+
   return res.json();
 }

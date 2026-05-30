@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Pencil, Activity,Tag } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import {getAnimales,crearAnimal,editarAnimal,cambiarEstadoAnimal,getPotreros} from "../services/api";
 import { usePagination } from "../hooks/usePagination";
 import {page,header,title,subtitle,tableContainer,table,tableHeader,searchInput,th,td,tr,badge,formGrid,modalHeader,modalActions,inputWrap,input,textarea,box,btnPrimary,btnSecondary,btnEdit,btnDelete,modal,estadoBox,btnPage,pageText,labelStyle} from "../styles/ganadoStyles";
@@ -15,6 +16,7 @@ function Ganado() {
   const [loading, setLoading] = useState(false);
   const [potreros, setPotreros] = useState([]);
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
 
   const [form, setForm] = useState({
     animalId: null,
@@ -173,19 +175,25 @@ const saveEstado = async () => {
     editMode ? update() : create();
   };
 
-const filtrados = animales.filter(a =>
-  `${a.nombre} ${a.numeroArete}`
-    .toLowerCase()
-    .includes(search.toLowerCase())
-);
-const {
-  page: currentPage,
-  totalPages,
-  paginated,
-  next,
-  prev
-} = usePagination(filtrados, 6);
+  const filtrados = animales.filter(a =>
+    `${a.nombre} ${a.numeroArete}`
+      .toLowerCase()
+      .includes(search.toLowerCase())
+  );
+  const {
+    page: currentPage,
+    totalPages,
+    paginated,
+    next,
+    prev
+  } = usePagination(filtrados, 6);
 
+  const [fichaOpen, setFichaOpen] = useState(false);
+  const [animalFicha, setAnimalFicha] = useState(null);
+
+  const openFicha = (animal) => {
+    navigate(`/dashboard/ganado/${animal.animalId}`);
+  };
   return (
   <div style={page}>
 
@@ -300,6 +308,11 @@ const {
                       <Activity size={16} />
                       Estado
                     </button>
+
+                    <button onClick={() => openFicha(a)}style={{background: "#0f172a",color: "white", border: "none", padding: "8px 12px", borderRadius: 8, cursor: "pointer",}}>
+                      Ver ficha
+                    </button>
+
                   </div>
                 </td>
 
