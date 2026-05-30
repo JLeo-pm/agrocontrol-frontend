@@ -1,6 +1,6 @@
 //URL de tu backend .NET
-export const API_URL = "https://localhost:7088/api";
-//export const API_URL = "https://agrocontrol-api-1.onrender.com/api";
+//export const API_URL = "https://localhost:7088/api";
+export const API_URL = "https://agrocontrol-api-1.onrender.com/api";
 
 // Helper para requests con token
 export function getAuthHeaders() {
